@@ -15,7 +15,7 @@ server.use(cookieParser("security", {"path": "/"}));
 app.use(cookieParser("security", {"path": "/"}));
 
 server.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8888");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
     res.setHeader("Access-Control-Expose-Headers","Access-Control-Allow-Origin");
@@ -23,7 +23,7 @@ server.use(function(req, res, next) {
 "X-Custom-Header,X-Requested-With,X-Prototype-Version,Content-Type,Cache-Control,Pragma,Origin,content-type");
 
     if (!req.signedCookies.usersession && req._parsedUrl.pathname != "/auth/login" && req.method != "OPTIONS") {
-        res.redirect('http://localhost:8080/app/pages/auth/auth.html');
+        res.redirect('http://localhost:8888/app/pages/auth/auth.html');
     }else{
         next();
     }
@@ -76,7 +76,7 @@ server.use(router); // Mount router on '/'
 server.listen(5000);
 
 var io = require('socket.io')(http);
-http.listen(8080);
+http.listen(8888);
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
         msg = JSON.parse(msg);
